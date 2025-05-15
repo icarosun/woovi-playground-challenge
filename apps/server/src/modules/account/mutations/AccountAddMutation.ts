@@ -1,4 +1,4 @@
-import { GraphQLInputObjectType, GraphQLNonNull, GraphQLString } from 'graphql';
+import { GraphQLInputObjectType, GraphQLNonNull, GraphQLString, GraphQLInt } from 'graphql';
 import { Account } from '../accountModel';
 import { AccountType } from '../accountType';
 
@@ -6,7 +6,9 @@ const AccountInput = new GraphQLInputObjectType({
   name: 'AccountAddInput',
   fields: {
     firstName: { type: GraphQLString },
-    lastName: { type: GraphQLString }
+    lastName: { type: GraphQLString },
+    cpf: { type: GraphQLString },
+    balance: { type: GraphQLInt }
   },
 });
 
@@ -20,6 +22,8 @@ export const AccountAddMutation = {
       const account = await new Account({
         firstName: input.firstName,
         lastName: input.lastName,
+        cpf: input.cpf, 
+        balance: input.balance || 0, 
       }).save();
 
 
@@ -27,7 +31,9 @@ export const AccountAddMutation = {
         id: account.id, 
         firstName: account.firstName,
         lastName: account.lastName,
-        balance: 0,
+        cpf: account.cpf,
+        balance: account.balance,
+        accountNumber: account.accountNumber,
       };
     }
   }

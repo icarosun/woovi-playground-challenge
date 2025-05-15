@@ -17,6 +17,14 @@ const AccountType = new GraphQLObjectType<IAccont>({
       type: GraphQLString,
       resolve: (account) => account.lastName,
     },
+    cpf: {
+      type: GraphQLString,
+      resolve: (account) => account.cpf,
+    },
+    accountNumber: {
+      type: GraphQLInt,
+      resolve: (account) => account.accountNumber,
+    },
     balance: {
       type: GraphQLInt,
       resolve: (account) => account.balance,
