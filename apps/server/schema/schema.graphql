@@ -15,12 +15,23 @@ type Query {
 
   account(id: ID!): Account!
   accounts: [Account!]!
+  transaction(id: ID!): Transaction!
+}
+
+type Transaction {
+  id: ID!
+  fromAccount: String!
+  toAccount: String!
+  value: Int!
+  createdAt: String
 }
 
 type Account {
   id: ID!
   firstName: String!
   lastName: String!
+  cpf: String!
+  accountNumber: Int
   balance: Int
 }
 
@@ -71,14 +82,23 @@ interface Node {
   id: ID!
 }
 
-input AccountInput {
-  firstName: String!
-  lastName: String!
-}
-
 type Mutation {
   MessageAdd(input: MessageAddInput!): MessageAddPayload
   createAccount(input: AccountInput!): Account!
+  sendTransaction(input: SendTransactionInput): Transaction!
+}
+
+input AccountInput {
+  firstName: String!
+  lastName: String!
+  cpf: String!
+  balance: Int
+}
+
+input SendTransactionInput {
+  fromAccount: String!
+  toAccount: String!
+  value: Int!
 }
 
 type MessageAddPayload {
