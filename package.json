@@ -4,13 +4,15 @@
 	"scripts": {
 		"build": "turbo run build",
 		"config:local": "turbo run config:local",
+    "config:test": "turbo run config:test",
 		"dev": "turbo run dev",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
 		"lint": "turbo run lint",
 		"relay": "turbo run relay",
 		"schema": "turbo run schema",
 		"compose:up": "docker-compose -f docker-compose.yml up -d",
-		"compose-down": "docker-compose -f docker-compose down"
+		"compose-down": "docker-compose -f docker-compose down",
+    "compose:up-test": "docker-compose -f docker-compose.test.yml up -d"
 	},
 	"devDependencies": {
 		"@babel/preset-env": "^7.23.8",
