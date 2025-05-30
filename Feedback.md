@@ -2,6 +2,8 @@
 
 Este arquivo é para descrever sobre as minhas decisões, opiniões e sugestões durante o decorrer do desenvolvimento do desafio.
 
+Está separado em seções, todavia o título não reporta uma série temporal, eu apenas não sei qual título colocar kk
+
 ## First day
 
 Apesar do desafio ser FullStack escolhi priorizar a área de backend, por mais afinidade. Além disso, preferi usar o boilerplate da Woovi[https://github.com/woovibr/woovi-playground] para começar os trabalhos embora pareça a decisão mais "fácil", com o tempo ela torna-se a mais complexa, visto que você precisa entender o código, é uma habilidade pouca falada, os programadores passam muito tempo **lendo** código, tentando entender o funcionamento do programa, e quanto menos familiaridade com as ferramentas usadas, mais longo é o tempo de adaptação. Outro motivo, é que no meu entendimento, a Woovi já possue um código, já é uma startup de mais de 3 anos, então, eles já tem um código, uma base, um bom costume, dessa forma, ao entrar na empresa, eu vou estar mais acostumado com os padrões de commit, ferramentas utilizadas e arquitetura empregada no código. E, principalmente, vou estar aprimorando a minha habilidade de ler código!
@@ -36,7 +38,7 @@ Na transaction eu coloquei o value em inteiro com duas casas, ou seja, 1000 é i
 Sobre a transaction, eu segui um padrão comum, apesar de achar que tá errado (Aqui falta experiência e conhecimento da área, no caso de finanças), seria: 
 
 1. Verifica a conta A; 
-2. Conta A tem saldo para fazer  trasação? 
+2. Conta A tem saldo para fazer  transação? 
 3. Verifica a conta B;
 4. Subtrai da Conta A;
 5. Soma o saldo na Conta B;
