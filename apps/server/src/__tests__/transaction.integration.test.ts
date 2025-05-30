@@ -46,7 +46,9 @@ describe('Transaction Integration test', () => {
       mutation {
         sendTransaction(input: {
             value: 500, 
-            fromAccount: "${fromAccount}", toAccount: "${toAccount}"}) {
+            fromAccount: "${fromAccount}", 
+            toAccount: "${toAccount}"}
+        ) {
           id
           value
           fromAccount
@@ -60,6 +62,30 @@ describe('Transaction Integration test', () => {
       .send({ query: mutation});
 
     expect(res.status).toBe(200);
-  }) 
-});
+  });
 
+  it('should not create a transaction with insufficient balance', async () => {
+
+    const mutation = `
+      mutation {
+        sendTransaction(input: {
+            value: 11000, 
+            fromAccount: "${fromAccount}",
+            toAccount: "${toAccount}"}
+          ) {
+            id
+            value
+            fromAccount
+            toAccount
+        }
+      }
+    `;
+
+    const res = await request(app.callback())
+      .post('/graphql')
+      .send({ query: mutation});
+
+    expect(res.status).toBe(200);
+    expect(res.text).toContain("errors");
+  });
+});
