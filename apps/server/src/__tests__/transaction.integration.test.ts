@@ -88,4 +88,104 @@ describe('Transaction Integration test', () => {
     expect(res.status).toBe(200);
     expect(res.text).toContain("errors");
   });
+
+  it('should not create a transaction to the same person', async () => {
+
+    const mutation = `
+      mutation {
+        sendTransaction(input: {
+            value: 500, 
+            fromAccount: "${fromAccount}",
+            toAccount: "${fromAccount}"}
+          ) {
+            id
+            value
+            fromAccount
+            toAccount
+        }
+      }
+    `;
+
+    const res = await request(app.callback())
+      .post('/graphql')
+      .send({ query: mutation});
+
+    expect(res.status).toBe(200);
+    expect(res.text).toContain("errors");
+  });
+
+  it('shoud not create a transaction with negative value', async () => {
+
+    const mutation = `
+      mutation {
+        sendTransaction(input: {
+            value: -50, 
+            fromAccount: "${fromAccount}",
+            toAccount: "${fromAccount}"}
+          ) {
+            id
+            value
+            fromAccount
+            toAccount
+        }
+      }
+    `;
+
+    const res = await request(app.callback())
+      .post('/graphql')
+      .send({ query: mutation});
+
+    expect(res.status).toBe(200);
+    expect(res.text).toContain("errors"); 
+  });
+
+  it('should not create a transaction without account to receive', async () => {
+
+    const mutation = `
+      mutation {
+        sendTransaction(input: {
+            value: 50, 
+            fromAccount: "${fromAccount}",
+            toAccount: "invalidtoken"}
+          ) {
+            id
+            value
+            fromAccount
+            toAccount
+        }
+      }
+    `;
+
+    const res = await request(app.callback())
+      .post('/graphql')
+      .send({ query: mutation});
+
+    expect(res.status).toBe(200);
+    expect(res.text).toContain("errors"); 
+  });
+
+  it('should not create a transaction with invalid token from account to send value', async () => {
+
+    const mutation = `
+      mutation {
+        sendTransaction(input: {
+            value: 50, 
+            fromAccount: "invalid token",
+            toAccount: "${fromAccount}"}
+          ) {
+            id
+            value
+            fromAccount
+            toAccount
+        }
+      }
+    `;
+
+    const res = await request(app.callback())
+      .post('/graphql')
+      .send({ query: mutation});
+
+    expect(res.status).toBe(200);
+    expect(res.text).toContain("errors"); 
+  });
 });
