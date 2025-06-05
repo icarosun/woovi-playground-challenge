@@ -27,4 +27,5 @@ module.exports = {
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts|tsx)?$',
   moduleFileExtensions: ['ts', 'js', 'tsx', 'json'],
+  setupFilesAfterEnv: ['./jest.setup.redis-mock.js'],
 };

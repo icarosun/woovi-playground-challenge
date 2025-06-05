@@ -16,6 +16,7 @@ const ENV = process.env;
 const config = {
 	PORT: ENV.PORT ?? 4000,
 	MONGO_URI: ENV.MONGO_URI ?? '',
+  REDIS_URI: ENV.REDIS_HOST,
 };
 
 export { config };

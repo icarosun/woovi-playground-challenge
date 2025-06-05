@@ -22,15 +22,31 @@ export const TransactionAddMutation = {
     resolve: async (_, { input }) => {
       const fromAccount = await Account.findById(input.fromAccount);
 
-      if(!fromAccount || fromAccount.value - input.value < 0) {
-        return;
+      if (fromAccount.id == input.toAccount) {
+        throw new GraphQLError("Invalid transaction");
       }
 
-      await Account.findOneAndUpdate(
+      if (input.value < 0) {
+        throw new GraphQLError("Invalid value in transaction");
+      }
+
+      if(!fromAccount) {
+        throw new GraphQLError("Invalid token");
+      }
+
+      if ((fromAccount.balance - Math.abs(input.value)) < 0) { 
+        throw new GraphQLError("No enought balance");
+      }
+
+      const updateToAccount =  await Account.findOneAndUpdate(
         { _id: input.toAccount }, 
         { $inc: { balance: input.value }}); 
+      
+      if (!updateToAccount) {
+        throw new GraphQLError("Invalid token");
+      }
 
-      await Account.findOneAndUpdate(
+      await Account.updateOne(
         {_id: fromAccount.id },
         { $inc: { balance: - input.value }}
       );
