@@ -64,6 +64,88 @@ describe('Transaction Integration test', () => {
     expect(res.status).toBe(200);
   });
 
+  it('should create a transaction and the account have to be updated', async () => {
+    const mutation = `
+      mutation {
+        sendTransaction(input: {
+            value: 500, 
+            fromAccount: "${fromAccount}", 
+            toAccount: "${toAccount}"}
+        ) {
+          id
+          value
+          fromAccount
+          toAccount
+        }
+      }
+    `;
+    
+    const query = `
+      query {
+        account(id: 
+            "${fromAccount}"
+        ) {
+          id
+          balance
+        }
+      }
+    `;
+
+    const res = await request(app.callback())
+      .post('/graphql')
+      .send({ query: mutation});
+
+    const resQuery = await request(app.callback())
+      .post('/graphql')
+      .send({ query: query});
+
+    const object = JSON.parse(resQuery.text);
+
+    expect(9500).toBe(object["data"]["account"].balance);
+    expect(res.status).toBe(200);
+  });
+
+  it('should create a transaction and the account have to be updated', async () => {
+    const mutation = `
+      mutation {
+        sendTransaction(input: {
+            value: 500, 
+            fromAccount: "${fromAccount}", 
+            toAccount: "${toAccount}"}
+        ) {
+          id
+          value
+          fromAccount
+          toAccount
+        }
+      }
+    `;
+    
+    const query = `
+      query {
+        account(id: 
+            "${fromAccount}"
+        ) {
+          id
+          balance
+        }
+      }
+    `;
+
+    const res = await request(app.callback())
+      .post('/graphql')
+      .send({ query: mutation});
+
+    const resQuery = await request(app.callback())
+      .post('/graphql')
+      .send({ query: query});
+
+    const object = JSON.parse(resQuery.text);
+
+    expect(9500).toBe(object["data"]["account"].balance);
+    expect(res.status).toBe(200);
+  });
+
   it('should not create a transaction with insufficient balance', async () => {
 
     const mutation = `
