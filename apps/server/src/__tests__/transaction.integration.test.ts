@@ -105,7 +105,7 @@ describe('Transaction Integration test', () => {
     expect(res.status).toBe(200);
   });
 
-  it('should create a transaction and the account have to be updated', async () => {
+  it('should create a transaction and the receive account have to be updated', async () => {
     const mutation = `
       mutation {
         sendTransaction(input: {
@@ -124,7 +124,7 @@ describe('Transaction Integration test', () => {
     const query = `
       query {
         account(id: 
-            "${fromAccount}"
+            "${toAccount}"
         ) {
           id
           balance
@@ -142,7 +142,7 @@ describe('Transaction Integration test', () => {
 
     const object = JSON.parse(resQuery.text);
 
-    expect(9500).toBe(object["data"]["account"].balance);
+    expect(20500).toBe(object["data"]["account"].balance);
     expect(res.status).toBe(200);
   });
 
