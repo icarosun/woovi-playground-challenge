@@ -22,7 +22,7 @@ export const TransactionAddMutation = {
     resolve: async (_, { input }) => {
       const fromAccount = await Account.findById(input.fromAccount);
 
-      if (fromAccount == input.toAccount) {
+      if (fromAccount.id == input.toAccount) {
         throw new GraphQLError("Invalid transaction");
       }
 
