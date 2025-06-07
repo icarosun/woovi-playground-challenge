@@ -24,12 +24,12 @@ jobs:
     - name: Install packages
       run: pnpm install --no-frozen-lockfile
 
-    - name: Create the environment
-      run: pnpm compose:test
-    
     - name: Setup Configuration
       run: pnpm config:test
 
+    - name: Run the container
+      run: pnpm compose:up-test
+    
     - name: Run backend test
       run: cd apps/server && pnpm test
 
