@@ -22,7 +22,7 @@ jobs:
       run: npm install pnpm -g
 
     - name: Install packages
-      run: pnpm install
+      run: pnpm install --no-frozen-lockfile
 
     - name: Create the environment
       run: pnpm compose:test
