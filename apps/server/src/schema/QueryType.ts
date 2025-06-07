@@ -35,14 +35,13 @@ export const QueryType = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(GraphQLID)},
       },
       resolve: (_, { id }) => Transaction.find(
-        {
-          $or: [
-            { fromAccount: id },
-            { toAccount: id}
-          ]
-        }
-
-      ),
+          {
+            $or: [
+              { fromAccount: id },
+              { toAccount: id}
+            ]
+          }
+        ).sort( { createdAt: -1 }),
     }
 	}),
 });
