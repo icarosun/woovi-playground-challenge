@@ -16,8 +16,8 @@ type Query {
   account(id: ID!): Account!
   accounts: [Account!]!
   transaction(id: ID!): Transaction!
+  balanceAccount(id: ID!): [Transaction!]!
 }
-
 type Transaction {
   id: ID!
   fromAccount: String!
